@@ -1,0 +1,26 @@
+<html>
+
+<head>
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+        integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+        crossorigin="anonymous"></script>
+</head>
+<h1>
+    Add a user
+</h1>
+
+<body>
+
+    <form hx-post="/add-user" hx-target="#content" hx-swap="innerHTML">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" value="John"><br>
+        <label for="userid">Last name:</label><br>
+        <input type="text" id="userid" name="userid" value="userid"><br><br>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="content">
+
+    </div>
+</body>
+
+</html>
