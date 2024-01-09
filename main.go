@@ -28,6 +28,7 @@ func main() {
 	r.GET("/u/:userId", GetUsetById)
 
 	r.GET("/add-user", ShowAddUserForm)
+	r.GET("/user-list", GetUserList)
 	r.POST("/add-user", AddUser)
 	r.Run()
 }
@@ -43,7 +44,11 @@ func userExist(id string) (*User, error) {
 }
 
 func ShowAddUserForm(c *gin.Context) {
-	c.HTML(http.StatusOK, "add_user.tmpl", nil)
+	c.HTML(http.StatusOK, "add_user.tmpl", gin.H{"Users": Users})
+}
+
+func GetUserList(c *gin.Context) {
+	c.HTML(http.StatusOK, "users.tmpl", gin.H{"Users": Users})
 }
 
 func AddUser(c *gin.Context) {

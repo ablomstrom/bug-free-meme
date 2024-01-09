@@ -19,7 +19,10 @@
         <button type="submit">Submit</button>
     </form>
     <div id="content">
-
+        {{range .Users}}
+        Username: {{.Username}}, UserId: {{.UserId}}
+        <hr>
+        {{end}}
     </div>
 </body>
 
