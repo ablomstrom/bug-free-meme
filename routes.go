@@ -19,6 +19,7 @@ func setupRoutes(router *gin.Engine) {
 
 	router.GET("/add-user", ShowAddUserForm)
 	router.GET("/user-list", GetUserList)
+	router.GET("/d", DashboardHandler)
 
 	user := router.Group("/u")
 	{
@@ -28,6 +29,9 @@ func setupRoutes(router *gin.Engine) {
 	api := router.Group("/auth")
 	{
 		api.POST("/login", LoginHandler)
+		api.POST("/logout", LogoutHandler)
+		api.GET("/logout", LogoutHandler)
+
 		api.GET("/login", LoginPage)
 	}
 }

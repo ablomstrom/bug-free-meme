@@ -83,6 +83,7 @@ func LoginHandler(c *gin.Context) {
 
 	session, _ := store.Get(c.Request, "goran-session")
 	session.Values["authenticated"] = true
+	session.Values["username"] = logged_in_user.Username // Store the username in the session
 	session.Save(c.Request, c.Writer)
 
 	c.HTML(http.StatusOK, "user_profile.tmpl", gin.H{"Username": logged_in_user.Username})
@@ -90,4 +91,42 @@ func LoginHandler(c *gin.Context) {
 
 func LoginPage(c *gin.Context) {
 	c.HTML(http.StatusOK, "login_page.tmpl", gin.H{})
+}
+
+func DashboardHandler(c *gin.Context) {
+
+	session, err := store.Get(c.Request, "goran-session")
+
+	if err != nil {
+		// Handle error - perhaps redirect to an error page or login page
+		c.Redirect(http.StatusFound, "/auth/login")
+		return
+	}
+
+	authenticated, ok := session.Values["authenticated"].(bool)
+
+	if !ok || !authenticated {
+		// User is not authenticated
+		c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"LoggedIn": false})
+	} else {
+
+		username, _ := session.Values["username"]
+		// User is authenticated
+		c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"LoggedIn": true, "Username": username})
+
+	}
+
+}
+
+func LogoutHandler(c *gin.Context) {
+	session, err := store.Get(c.Request, "goran-session")
+	if err != nil {
+		// Optional: Handle error
+	}
+	session.Values["authenticated"] = false
+	session.Values["username"] = "" // Clear username or other user-specific data
+	session.Save(c.Request, c.Writer)
+
+	// Redirect to home page or login page after logout
+	c.Redirect(http.StatusFound, "/d")
 }
