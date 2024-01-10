@@ -11,16 +11,19 @@
 
 <body>
 
-    <form hx-post="/add-user" hx-target="#content" hx-swap="innerHTML">
+    <form hx-post="/u/" hx-target="#content" hx-swap="innerHTML">
         <label for="username">Username:</label><br>
         <input type="text" id="username" name="username" value="John"><br>
-        <label for="userid">Last name:</label><br>
-        <input type="text" id="userid" name="userid" value="userid"><br><br>
+        <label for="password">Last name:</label><br>
+        <input type="password" id="userid" name="password" value="hunter2"><br><br>
         <button type="submit">Submit</button>
     </form>
     <div id="content">
+
+    </div>
+    <div>
         {{range .Users}}
-        Username: {{.Username}}, UserId: {{.UserId}}
+        Username: {{.Username}}, UserId: {{.UserId}}, Password: {{.Password}}
         <hr>
         {{end}}
     </div>

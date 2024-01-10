@@ -19,5 +19,15 @@ func setupRoutes(router *gin.Engine) {
 
 	router.GET("/add-user", ShowAddUserForm)
 	router.GET("/user-list", GetUserList)
-	router.POST("/add-user", AddUser)
+
+	user := router.Group("/u")
+	{
+		user.POST("/", SignupHandler)
+	}
+
+	api := router.Group("/auth")
+	{
+		api.POST("/login", LoginHandler)
+		api.GET("/login", LoginPage)
+	}
 }
