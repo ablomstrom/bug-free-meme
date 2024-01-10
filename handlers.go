@@ -81,6 +81,10 @@ func LoginHandler(c *gin.Context) {
 		return
 	}
 
+	session, _ := store.Get(c.Request, "goran-session")
+	session.Values["authenticated"] = true
+	session.Save(c.Request, c.Writer)
+
 	c.HTML(http.StatusOK, "user_profile.tmpl", gin.H{"Username": logged_in_user.Username})
 }
 
